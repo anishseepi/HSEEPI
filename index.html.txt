@@ -32,26 +32,20 @@
             line-height: 1.6;
         }
 
-        .features {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 20px;
+        label {
+            display: block;
+            margin-top: 10px;
         }
 
-        .feature-card {
-            background: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 15px;
-            width: calc(50% - 10px);
-            box-sizing: border-box;
-            text-align: center;
-        }
-
-        .feature-card h3 {
-            margin: 0 0 10px 0;
-            color: #28a745;
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
 
         button {
@@ -67,16 +61,6 @@
 
         button:hover {
             background-color: #218838;
-        }
-
-        /* Styling for the dashboard */
-        .page {
-            display: none;
-            padding: 20px;
-        }
-
-        .active {
-            display: block;
         }
 
         table {
@@ -95,166 +79,256 @@
         th {
             background-color: #f2f2f2;
         }
+
+        .page {
+            display: none;
+            padding: 20px;
+        }
+
+        .active {
+            display: block;
+        }
+
+        .notification {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <!-- ???????? -->
-        <div id="homePage" class="page active">
-            <h1>HSEEPI</h1>
-            <p>L'application HSEEPI est un outil innovant qui permet aux utilisateurs de suivre l'état des extincteurs, de gérer les équipements de protection individuelle, d'organiser des plans d'évacuation et de former les utilisateurs sur les procédures de sécurité en cas d'urgence.</p>
-            <h2>Fonctionnalités principales:</h2>
-            <div class="features">
-                <div class="feature-card">
-                    <h3>Gestion des extincteurs</h3>
-                    <p>Ajouter/Modifier les extincteurs, suivre leur état, recevoir des alertes pour la maintenance.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Équipements de protection</h3>
-                    <p>Ajouter/Modifier les équipements de protection individuelle, suivre leur état.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Procédures d'urgence</h3>
-                    <p>Voir les plans d'évacuation interactifs, ajouter des instructions d'urgence avec des images.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Formation et tests</h3>
-                    <p>Sessions de formation interactives, tests d'évaluation de la sécurité.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Rapports et analyses</h3>
-                    <p>Voir les rapports sur les accidents du travail avec des statistiques, exporter les rapports.</p>
-                </div>
-            </div>
-            <button onclick="navigateToPage('dashboard')">Accéder à l'application</button>
+        <!-- ???? ??????? -->
+        <div id="registerPage" class="page active">
+            <h1>Inscription</h1>
+            <label for="fullName">Nom complet (Prénom et Nom):</label>
+            <input type="text" id="fullName" placeholder="Entrez votre nom complet">
+
+            <label for="email">Adresse e-mail:</label>
+            <input type="email" id="email" placeholder="Entrez votre e-mail">
+
+            <label for="phone">Numéro de téléphone:</label>
+            <input type="text" id="phone" placeholder="Entrez votre numéro de téléphone">
+
+            <label for="password">Mot de passe:</label>
+            <input type="password" id="password" placeholder="Entrez un mot de passe">
+
+            <button onclick="registerUser()">S'inscrire</button>
         </div>
 
-        <!-- ???? ?????? -->
+        <!-- ???? ????? ?????? -->
+        <div id="loginPage" class="page">
+            <h1>Connexion</h1>
+            <label for="loginEmail">Adresse e-mail:</label>
+            <input type="email" id="loginEmail" placeholder="Entrez votre e-mail">
+
+            <label for="loginPassword">Mot de passe:</label>
+            <input type="password" id="loginPassword" placeholder="Entrez votre mot de passe">
+
+            <button onclick="loginUser()">Se connecter</button>
+        </div>
+
+        <!-- ???? ???? ?????? -->
         <div id="dashboard" class="page">
-            <h2>Panneau de contrôle HSEEPI</h2>
-            <button onclick="navigateToPage('fireExtinguishers')">Gestion des extincteurs</button>
-            <button onclick="navigateToPage('ppe')">Gestion des équipements de protection</button>
-            <button onclick="navigateToPage('emergencyProcedures')">Procédures d'urgence</button>
-            <button onclick="navigateToPage('training')">Formation et tests</button>
-            <button onclick="navigateToPage('reports')">Rapports et analyses</button>
-        </div>
+            <h2>Bienvenue, <span id="displayName"></span>!</h2>
+            <p><strong>Email:</strong> <span id="displayEmail"></span></p>
+            <p><strong>Téléphone:</strong> <span id="displayPhone"></span></p>
 
-        <!-- ????? ???????? -->
-        <div id="fireExtinguishers" class="page">
-            <h2>Gestion des extincteurs</h2>
+            <h3>Gestion des extincteurs</h3>
             <table>
                 <thead>
                     <tr>
                         <th>Type</th>
                         <th>Emplacement</th>
                         <th>Date d'achat</th>
-                        <th>Date de maintenance</th>
-                        <th>État</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Poudre sèche</td>
-                        <td>Bâtiment A</td>
-                        <td>2022-01-15</td>
-                        <td>2023-01-15</td>
-                        <td>En bon état</td>
-                    </tr>
-                    <tr>
-                        <td>Gaz carbonique</td>
-                        <td>Bâtiment B</td>
-                        <td>2021-06-20</td>
-                        <td>2023-06-20</td>
-                        <td>Nécessite maintenance</td>
-                    </tr>
-                </tbody>
-            </table>
-            <button onclick="navigateToPage('dashboard')">Retour au panneau de contrôle</button>
-        </div>
-
-        <!-- ????? ????? ??????? -->
-        <div id="ppe" class="page">
-            <h2>Gestion des équipements de protection</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Type</th>
-                        <th>Quantité disponible</th>
                         <th>Date d'expiration</th>
                         <th>État</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>Casques</td>
-                        <td>50</td>
-                        <td>2024-12-31</td>
-                        <td>En bon état</td>
-                    </tr>
-                    <tr>
-                        <td>Gants</td>
-                        <td>100</td>
-                        <td>2023-11-30</td>
-                        <td>En bon état</td>
-                    </tr>
+                <tbody id="extinguishersTable">
+                    <!-- Extincteurs seront affichés ici -->
                 </tbody>
             </table>
-            <button onclick="navigateToPage('dashboard')">Retour au panneau de contrôle</button>
-        </div>
+            <button onclick="addExtinguisher()">AJOUTER UN EXTINCTEUR</button>
 
-        <!-- ??????? ??????? -->
-        <div id="emergencyProcedures" class="page">
-            <h2>Procédures d'urgence</h2>
-            <p>Plan d'évacuation interactif pour le bâtiment principal chargé avec succès.</p>
-            <button onclick="navigateToPage('dashboard')">Retour au panneau de contrôle</button>
-        </div>
-
-        <!-- ??????? ??????????? -->
-        <div id="training" class="page">
-            <h2>Formation et tests</h2>
-            <p>Session de formation interactive sur l'utilisation des extincteurs.</p>
-            <button onclick="navigateToPage('dashboard')">Retour au panneau de contrôle</button>
-        </div>
-
-        <!-- ???????? ?????????? -->
-        <div id="reports" class="page">
-            <h2>Rapports et analyses</h2>
+            <h3>Gestion des accidents du travail</h3>
             <table>
                 <thead>
                     <tr>
-                        <th>Type d'accident</th>
-                        <th>Date</th>
-                        <th>Nombre de victimes</th>
-                        <th>Description</th>
+                        <th>Type de blessure</th>
+                        <th>Lieu de la blessure</th>
+                        <th>Date de l'accident</th>
+                        <th>Jours d'incapacité</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>Chute</td>
-                        <td>2023-09-15</td>
-                        <td>1</td>
-                        <td>Un employé a trébuché sur un câble.</td>
-                    </tr>
-                    <tr>
-                        <td>Feu</td>
-                        <td>2023-08-10</td>
-                        <td>0</td>
-                        <td>Incendie maîtrisé grâce à un extincteur.</td>
-                    </tr>
+                <tbody id="accidentsTable">
+                    <!-- Accidents seront affichés ici -->
                 </tbody>
             </table>
-            <button onclick="navigateToPage('dashboard')">Retour au panneau de contrôle</button>
+            <button onclick="addAccident()">AJOUTER UN ACCIDENT</button>
         </div>
     </div>
 
     <script>
+        let users = [];
+        let currentUser = null;
+
+        // Inscription
+        function registerUser() {
+            const fullName = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            if (!fullName || !email || !phone || !password) {
+                alert("Veuillez remplir tous les champs.");
+                return;
+            }
+
+            users.push({ fullName, email, phone, password });
+            localStorage.setItem('users', JSON.stringify(users));
+            alert("Inscription réussie! Veuillez vous connecter.");
+            navigateToPage('loginPage');
+        }
+
+        // Connexion
+        function loginUser() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+
+            const user = users.find(u => u.email === email && u.password === password);
+
+            if (!user) {
+                alert("E-mail ou mot de passe incorrect.");
+                return;
+            }
+
+            currentUser = user;
+            navigateToPage('dashboard');
+            updateDashboard();
+        }
+
+        // Mettre à jour le tableau des extincteurs
+        function updateExtinguishersTable() {
+            const extinguishers = [
+                { type: "Poudre sèche", location: "Bâtiment A", purchaseDate: "2022-01-15", expiryDate: "2024-01-15" },
+                { type: "Gaz carbonique", location: "Bâtiment B", purchaseDate: "2021-06-20", expiryDate: "2023-06-20" }
+            ];
+
+            const tableBody = document.getElementById('extinguishersTable');
+            tableBody.innerHTML = '';
+
+            extinguishers.forEach(extinguisher => {
+                const row = document.createElement('tr');
+
+                const daysUntilExpiry = Math.ceil((new Date(extinguisher.expiryDate) - new Date()) / (1000 * 60 * 60 * 24));
+
+                row.innerHTML = `
+                    <td>${extinguisher.type}</td>
+                    <td>${extinguisher.location}</td>
+                    <td>${extinguisher.purchaseDate}</td>
+                    <td>${extinguisher.expiryDate}</td>
+                    <td>${daysUntilExpiry <= 30 ? '<span class="notification">Proche de l\'expiration</span>' : 'En bon état'}</td>
+                `;
+
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Ajouter un extincteur
+        function addExtinguisher() {
+            const type = prompt("Type d'extincteur:");
+            const location = prompt("Emplacement:");
+            const purchaseDate = prompt("Date d'achat (YYYY-MM-DD):");
+            const expiryDate = prompt("Date d'expiration (YYYY-MM-DD):");
+
+            if (type && location && purchaseDate && expiryDate) {
+                const newExtinguisher = { type, location, purchaseDate, expiryDate };
+                const tableBody = document.getElementById('extinguishersTable');
+
+                const row = document.createElement('tr');
+                const daysUntilExpiry = Math.ceil((new Date(expiryDate) - new Date()) / (1000 * 60 * 60 * 24));
+
+                row.innerHTML = `
+                    <td>${type}</td>
+                    <td>${location}</td>
+                    <td>${purchaseDate}</td>
+                    <td>${expiryDate}</td>
+                    <td>${daysUntilExpiry <= 30 ? '<span class="notification">Proche de l\'expiration</span>' : 'En bon état'}</td>
+                `;
+
+                tableBody.appendChild(row);
+            }
+        }
+
+        // Ajouter un accident
+        function addAccident() {
+            const injuryType = prompt("Type de blessure:");
+            const injuryLocation = prompt("Lieu de la blessure:");
+            const accidentDate = prompt("Date de l'accident (YYYY-MM-DD):");
+            const incapacityDays = prompt("Nombre de jours d'incapacité:");
+
+            if (injuryType && injuryLocation && accidentDate && incapacityDays) {
+                const newAccident = { injuryType, injuryLocation, accidentDate, incapacityDays };
+                const tableBody = document.getElementById('accidentsTable');
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${injuryType}</td>
+                    <td>${injuryLocation}</td>
+                    <td>${accidentDate}</td>
+                    <td>${incapacityDays}</td>
+                `;
+
+                tableBody.appendChild(row);
+            }
+        }
+
+        // Mettre à jour le tableau des accidents
+        function updateAccidentsTable() {
+            const accidents = [
+                { injuryType: "Chute", injuryLocation: "Main", accidentDate: "2023-09-15", incapacityDays: 5 },
+                { injuryType: "Brûlure", injuryLocation: "Jambe", accidentDate: "2023-08-10", incapacityDays: 10 }
+            ];
+
+            const tableBody = document.getElementById('accidentsTable');
+            tableBody.innerHTML = '';
+
+            accidents.forEach(accident => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${accident.injuryType}</td>
+                    <td>${accident.injuryLocation}</td>
+                    <td>${accident.accidentDate}</td>
+                    <td>${accident.incapacityDays}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Mettre à jour le tableau de bord
+        function updateDashboard() {
+            document.getElementById('displayName').textContent = currentUser.fullName;
+            document.getElementById('displayEmail').textContent = currentUser.email;
+            document.getElementById('displayPhone').textContent = currentUser.phone;
+
+            updateExtinguishersTable();
+            updateAccidentsTable();
+        }
+
         // Navigation entre les pages
         function navigateToPage(pageId) {
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
+
+            if (pageId === 'dashboard') {
+                users = JSON.parse(localStorage.getItem('users')) || [];
+            }
         }
     </script>
 </body>
 
 </html>
+
+   

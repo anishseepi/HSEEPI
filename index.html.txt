@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application HSEEPI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #28a745;
+        }
+
+        p {
+            text-align: justify;
+            line-height: 1.6;
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .feature-card {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            width: calc(50% - 10px);
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .feature-card h3 {
+            margin: 0 0 10px 0;
+            color: #28a745;
+        }
+
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        /* Styling for the dashboard */
+        .page {
+            display: none;
+            padding: 20px;
+        }
+
+        .active {
+            display: block;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- ???????? -->
+        <div id="homePage" class="page active">
+            <h1>HSEEPI</h1>
+            <p>L'application HSEEPI est un outil innovant qui permet aux utilisateurs de suivre l'état des extincteurs, de gérer les équipements de protection individuelle, d'organiser des plans d'évacuation et de former les utilisateurs sur les procédures de sécurité en cas d'urgence.</p>
+            <h2>Fonctionnalités principales:</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <h3>Gestion des extincteurs</h3>
+                    <p>Ajouter/Modifier les extincteurs, suivre leur état, recevoir des alertes pour la maintenance.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Équipements de protection</h3>
+                    <p>Ajouter/Modifier les équipements de protection individuelle, suivre leur état.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Procédures d'urgence</h3>
+                    <p>Voir les plans d'évacuation interactifs, ajouter des instructions d'urgence avec des images.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Formation et tests</h3>
+                    <p>Sessions de formation interactives, tests d'évaluation de la sécurité.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Rapports et analyses</h3>
+                    <p>Voir les rapports sur les accidents du travail avec des statistiques, exporter les rapports.</p>
+                </div>
+            </div>
+            <button onclick="navigateToPage('dashboard')">Accéder à l'application</button>
+        </div>
+
+        <!-- ???? ?????? -->
+        <div id="dashboard" class="page">
+            <h2>Panneau de contrôle HSEEPI</h2>
+            <button onclick="navigateToPage('fireExtinguishers')">Gestion des extincteurs</button>
+            <button onclick="navigateToPage('ppe')">Gestion des équipements de protection</button>
+            <button onclick="navigateToPage('emergencyProcedures')">Procédures d'urgence</button>
+            <button onclick="navigateToPage('training')">Formation et tests</button>
+            <button onclick="navigateToPage('reports')">Rapports et analyses</button>
+        </div>
+
+        <!-- ????? ???????? -->
+        <div id="fireExtinguishers" class="page">
+            <h2>Gestion des extincteurs</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Emplacement</th>
+                        <th>Date d'achat</th>
+                        <th>Date de maintenance</th>
+                        <th>État</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Poudre sèche</td>
+                        <td>Bâtiment A</td>
+                        <td>2022-01-15</td>
+                        <td>2023-01-15</td>
+                        <td>En bon état</td>
+                    </tr>
+                    <tr>
+                        <td>Gaz carbonique</td>
+                        <td>Bâtiment B</td>
+                        <td>2021-06-20</td>
+                        <td>2023-06-20</td>
+                        <td>Nécessite maintenance</td>
+                    </tr>
+                </tbody>
+            </table>
+            <button onclick="navigateToPage('dashboard')">Retour au panneau de contrôle</button>
+        </div>
+
+        <!-- ????? ????? ??????? -->
+        <div id="ppe" class="page">
+            <h2>Gestion des équipements de protection</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Quantité disponible</th>
+                        <th>Date d'expiration</th>
+                        <th>État</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Casques</td>
+                        <td>50</td>
+                        <td>2024-12-31</td>
+                        <td>En bon état</td>
+                    </tr>
+                    <tr>
+                        <td>Gants</td>
+                        <td>100</td>
+                        <td>2023-11-30</td>
+                        <td>En bon état</td>
+                    </tr>
+                </tbody>
+            </table>
+            <button onclick="navigateToPage('dashboard')">Retour au panneau de contrôle</button>
+        </div>
+
+        <!-- ??????? ??????? -->
+        <div id="emergencyProcedures" class="page">
+            <h2>Procédures d'urgence</h2>
+            <p>Plan d'évacuation interactif pour le bâtiment principal chargé avec succès.</p>
+            <button onclick="navigateToPage('dashboard')">Retour au panneau de contrôle</button>
+        </div>
+
+        <!-- ??????? ??????????? -->
+        <div id="training" class="page">
+            <h2>Formation et tests</h2>
+            <p>Session de formation interactive sur l'utilisation des extincteurs.</p>
+            <button onclick="navigateToPage('dashboard')">Retour au panneau de contrôle</button>
+        </div>
+
+        <!-- ???????? ?????????? -->
+        <div id="reports" class="page">
+            <h2>Rapports et analyses</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type d'accident</th>
+                        <th>Date</th>
+                        <th>Nombre de victimes</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Chute</td>
+                        <td>2023-09-15</td>
+                        <td>1</td>
+                        <td>Un employé a trébuché sur un câble.</td>
+                    </tr>
+                    <tr>
+                        <td>Feu</td>
+                        <td>2023-08-10</td>
+                        <td>0</td>
+                        <td>Incendie maîtrisé grâce à un extincteur.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <button onclick="navigateToPage('dashboard')">Retour au panneau de contrôle</button>
+        </div>
+    </div>
+
+    <script>
+        // Navigation entre les pages
+        function navigateToPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+        }
+    </script>
+</body>
+
+</html>

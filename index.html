@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application HSEEPI</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- ???????? -->
+        <div id="homePage" class="page active">
+            <h1>Application HSEEPI</h1>
+            <p>Application HSEEPI est un outil innovant qui permet aux utilisateurs de suivre l'état des extincteurs, de gérer les équipements de protection individuelle, et d'analyser les accidents de travail.</p>
+            <h2>Inscription ou Connexion</h2>
+
+            <!-- ????? ??????? -->
+            <form id="registerForm">
+                <label for="fullName">Nom complet (Prénom et Nom):</label>
+                <input type="text" id="fullName" placeholder="Entrez votre nom complet">
+
+                <label for="email">Adresse e-mail:</label>
+                <input type="email" id="email" placeholder="Entrez votre e-mail">
+
+                <label for="phone">Numéro de téléphone:</label>
+                <input type="text" id="phone" placeholder="Entrez votre numéro de téléphone">
+
+                <label for="password">Mot de passe:</label>
+                <input type="password" id="password" placeholder="Entrez un mot de passe">
+
+                <button type="submit">S'inscrire</button>
+            </form>
+
+            <!-- ????? ????? ?????? -->
+            <form id="loginForm">
+                <label for="email">Adresse e-mail:</label>
+                <input type="email" id="email" placeholder="Entrez votre e-mail">
+
+                <label for="password">Mot de passe:</label>
+                <input type="password" id="password" placeholder="Entrez votre mot de passe">
+
+                <button type="submit">Se connecter</button>
+            </form>
+        </div>
+
+        <!-- ???? ?????? -->
+        <div id="dashboard" class="page">
+            <h2>Bienvenue, <span id="displayName"></span> !</h2>
+            <p><strong>Email:</strong> <span id="displayEmail"></span></p>
+            <p><strong>Téléphone:</strong> <span id="displayPhone"></span></p>
+
+            <!-- ????? ???????? -->
+            <h3>Gestion des extincteurs</h3>
+            <table id="extinguishersTable">
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Emplacement</th>
+                        <th>Date de remplissage</th>
+                        <th>Date d'expiration</th>
+                        <th>Entreprise responsable</th>
+                        <th>État</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- ?????? ???????? ????? ??? -->
+                </tbody>
+            </table>
+            <button onclick="addExtinguisher()">AJOUTER UN EXTINCTEUR</button>
+
+            <!-- ????? ????? ??????? ??????? -->
+            <h3>Gestion des équipements de protection</h3>
+            <table id="ppeTable">
+                <thead>
+                    <tr>
+                        <th>Nom et prénom</th>
+                        <th>Fonction</th>
+                        <th>Date de réception</th>
+                        <th>Date de prochain remplacement</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- ?????? ????? ??????? ??????? ????? ??? -->
+                </tbody>
+            </table>
+            <button onclick="addPpe()">AJOUTER UN ÉQUIPEMENT</button>
+
+            <!-- ?????? ????????? ????? ????? -->
+            <h3>Rapports et statistiques des accidents de travail</h3>
+            <table id="accidentsTable">
+                <thead>
+                    <tr>
+                        <th>Nom et prénom</th>
+                        <th>Date et heure de l'accident</th>
+                        <th>Lieu de l'accident</th>
+                        <th>Type d'accident</th>
+                        <th>Durée d'absence</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- ?????? ????? ????? ????? ??? -->
+                </tbody>
+            </table>
+            <button onclick="addAccident()">AJOUTER UN ACCIDENT</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

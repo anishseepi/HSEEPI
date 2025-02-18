@@ -1,13 +1,13 @@
-// ????? ?????????? ?? localStorage
+// تخزين المستخدمين في localStorage
 let users = JSON.parse(localStorage.getItem('users')) || [];
 
-// ????? ?????? ????????? ????? ??????? ???????? ?????? ?????
+// تخزين بيانات الطفايات، معدات الوقاية الشخصية، وحوادث العمل
 let extinguishers = JSON.parse(localStorage.getItem('extinguishers')) || [];
 let ppe = JSON.parse(localStorage.getItem('ppe')) || [];
 let accidents = JSON.parse(localStorage.getItem('accidents')) || [];
 let currentUser = null;
 
-// ????? ????????
+// تسجيل المستخدم
 document.getElementById('registerForm').addEventListener('submit', function(event) {
     event.preventDefault();
     const fullName = document.getElementById('fullName').value.trim();
@@ -22,13 +22,11 @@ document.getElementById('registerForm').addEventListener('submit', function(even
 
     users.push({ fullName, email, phone, password });
     localStorage.setItem('users', JSON.stringify(users));
-    alert("Inscription r�ussie! Veuillez vous connecter.");
-    document.getElementById('registerForm').reset();
-    document.getElementById('homePage').classList.remove('active');
-    document.getElementById('loginForm').classList.add('active');
+    alert("Inscription réussie! Veuillez vous connecter.");
+    window.location.href = 'login.html'; // تحويل المستخدم إلى صفحة تسجيل الدخول
 });
 
-// ????? ???? ????????
+// تسجيل دخول المستخدم
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();
     const email = document.getElementById('email').value.trim();
@@ -42,12 +40,10 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     }
 
     currentUser = user;
-    document.getElementById('homePage').classList.remove('active');
-    document.getElementById('dashboard').classList.add('active');
-    updateDashboard();
+    window.location.href = 'dashboard.html'; // تحويل المستخدم إلى لوحة التحكم
 });
 
-// ????? ???? ??????
+// تحديث لوحة التحكم
 function updateDashboard() {
     document.getElementById('displayName').textContent = currentUser.fullName;
     document.getElementById('displayEmail').textContent = currentUser.email;
@@ -58,7 +54,7 @@ function updateDashboard() {
     updateAccidentsTable();
 }
 
-// ????? ???? ??????? ???????
+// تحديث جدول قارورات الإطفاء
 function updateExtinguishersTable() {
     const tableBody = document.getElementById('extinguishersTable').getElementsByTagName('tbody')[0];
     tableBody.innerHTML = '';
@@ -74,21 +70,21 @@ function updateExtinguishersTable() {
             <td>${extinguisher.refillDate}</td>
             <td>${extinguisher.expiryDate}</td>
             <td>${extinguisher.responsibleCompany}</td>
-            <td>${daysUntilExpiry <= 30 ? '<span class="notification">Proche de l\'expiration</span>' : 'En bon �tat'}</td>
+            <td>${daysUntilExpiry <= 30 ? '<span class="notification">Proche de l\'expiration</span>' : 'En bon état'}</td>
         `;
 
         tableBody.appendChild(row);
     });
 }
 
-// ????? ?????? ????? ?????
+// إضافة قارورة إطفاء جديدة
 function addExtinguisher() {
     const type = prompt("Type d'extincteur:");
     const location = prompt("Emplacement:");
     const refillDate = prompt("Date de remplissage (YYYY-MM-DD):");
     const expiryDate = prompt("Date d'expiration (YYYY-MM-DD):");
     const responsibleCompany = prompt("Entreprise responsable:");
-    const status = prompt("�tat (En bon �tat / N�cessite maintenance / Expir�)");
+    const status = prompt("État (En bon état / Nécessite maintenance / Expiré)");
 
     if (type && location && refillDate && expiryDate && responsibleCompany && status) {
         extinguishers.push({
@@ -104,7 +100,7 @@ function addExtinguisher() {
     }
 }
 
-// ????? ???? ????? ??????? ???????
+// تحديث جدول معدات الوقاية الشخصية
 function updatePpeTable() {
     const tableBody = document.getElementById('ppeTable').getElementsByTagName('tbody')[0];
     tableBody.innerHTML = '';
@@ -125,11 +121,11 @@ function updatePpeTable() {
     });
 }
 
-// ????? ????? ????? ????? ?????
+// إضافة معدات وقاية شخصية جديدة
 function addPpe() {
-    const name = prompt("Nom et pr�nom:");
+    const name = prompt("Nom et prénom:");
     const functionn = prompt("Fonction:");
-    const receptionDate = prompt("Date de r�ception (YYYY-MM-DD):");
+    const receptionDate = prompt("Date de réception (YYYY-MM-DD):");
     const nextReplacementDate = prompt("Date de prochain remplacement (YYYY-MM-DD):");
 
     if (name && functionn && receptionDate && nextReplacementDate) {
@@ -144,4 +140,44 @@ function addPpe() {
     }
 }
 
-// ??
+// تحديث جدول حوادث العمل
+function updateAccidentsTable() {
+    const tableBody = document.getElementById('accidentsTable').getElementsByTagName('tbody')[0];
+    tableBody.innerHTML = '';
+
+    accidents.forEach(accident => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${accident.name}</td>
+            <td>${accident.dateAndTime}</td>
+            <td>${accident.location}</td>
+            <td>${accident.accidentType}</td>
+            <td>${accident.absenceDuration}</td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
+// إضافة حادث عمل جديد
+function addAccident() {
+    const name = prompt("Nom et prénom:");
+    const dateAndTime = prompt("Date et heure de l'accident (YYYY-MM-DD HH:MM):");
+    const location = prompt("Lieu de l'accident:");
+    const accidentType = prompt("Type d'accident:");
+    const absenceDuration = prompt("Durée d'absence (en jours):");
+
+    if (name && dateAndTime && location && accidentType && absenceDuration) {
+        accidents.push({
+            name,
+            dateAndTime,
+            location,
+            accidentType,
+            absenceDuration
+        });
+        localStorage.setItem('accidents', JSON.stringify(accidents));
+        updateAccidentsTable();
+    }
+}
+
+// تحديث لوحة التحكم عند تحميل الصفحة
+window.onload = updateDashboard;

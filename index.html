@@ -1,33 +1,23 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HSEEPI - Gestion de la Sécurité</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Styles pour la page */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            flex-direction: column;
+            text-align: center;
+            padding: 20px;
         }
-
         .page {
             display: none;
         }
-
         .active {
             display: block;
         }
-
         button {
             margin: 10px;
             padding: 10px 20px;
@@ -36,59 +26,29 @@
             border: none;
             cursor: pointer;
             border-radius: 5px;
-            transition: background 0.3s;
         }
-
         button:hover {
             background: #218838;
         }
-
-        input {
-            padding: 10px;
-            margin: 5px;
-            width: 80%;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-
-        h2 {
-            color: #333;
-        }
-
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
         }
-
         table, th, td {
-            border: 1px solid #ddd;
+            border: 1px solid black;
         }
-
         th, td {
-            padding: 12px 15px;
+            padding: 10px;
             text-align: left;
         }
-
-        th {
-            background-color: #f8f8f8;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            input {
-                width: 100%;
-            }
-
-            table, th, td {
-                font-size: 14px;
-            }
+        .alert {
+            color: red;
+            font-weight: bold;
         }
     </style>
 </head>
-
 <body>
-    <!-- Page de connexion -->
     <div id="loginPage" class="page active">
         <h2>Connexion</h2>
         <input type="email" id="loginEmail" placeholder="Email">
@@ -97,7 +57,6 @@
         <p>Pas de compte? <a href="#" onclick="showPage('registerPage')">Créer un compte</a></p>
     </div>
 
-    <!-- Page d'inscription -->
     <div id="registerPage" class="page">
         <h2>Inscription</h2>
         <input type="text" id="registerNom" placeholder="Nom">
@@ -108,7 +67,6 @@
         <p>Déjà un compte? <a href="#" onclick="showPage('loginPage')">Connectez-vous ici</a></p>
     </div>
 
-    <!-- Tableau de bord -->
     <div id="dashboard" class="page">
         <h2>Tableau de Bord</h2>
         <button onclick="showPage('extincteursPage')">Gestion des Extincteurs</button>
@@ -117,166 +75,120 @@
         <button onclick="logout()">Déconnexion</button>
     </div>
 
-    <!-- Page de gestion des extincteurs -->
     <div id="extincteursPage" class="page">
         <h2>Gestion des Extincteurs</h2>
-        <form id="formExtincteur" onsubmit="ajouterExtincteur(event)">
-            <input type="text" id="typeExtincteur" placeholder="Type de l'extincteur" required>
-            <input type="date" id="dateRemplissage" placeholder="Date de remplissage" required>
-            <input type="date" id="dateExpiration" placeholder="Date d'expiration" required>
-            <button type="submit">Ajouter Extincteur</button>
-        </form>
         <table id="extincteursTable">
-            <thead>
-                <tr>
-                    <th>Type</th>
-                    <th>Date de remplissage</th>
-                    <th>Date d'expiration</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
+            <tr>
+                <th>Type</th>
+                <th>Date de remplissage</th>
+                <th>Date d'expiration</th>
+                <th>Lieu</th>
+                <th>Alertes</th>
+                <th>Action</th>
+            </tr>
         </table>
+        <button onclick="ajouterExtincteur()">Ajouter Extincteur</button>
         <button onclick="showPage('dashboard')">Retour</button>
     </div>
 
-    <!-- Page des rapports d'accidents -->
     <div id="accidentsPage" class="page">
         <h2>Rapports d'Accidents</h2>
-        <form id="formAccident" onsubmit="ajouterAccident(event)">
-            <input type="text" id="nomAccident" placeholder="Nom" required>
-            <input type="date" id="dateAccident" placeholder="Date" required>
-            <input type="text" id="lieuAccident" placeholder="Lieu" required>
-            <input type="text" id="natureAccident" placeholder="Nature de la blessure" required>
-            <input type="number" id="joursAbsence" placeholder="Jours d'absence" required>
-            <button type="submit">Ajouter Rapport</button>
-        </form>
         <table id="accidentsTable">
-            <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Date</th>
-                    <th>Lieu</th>
-                    <th>Nature de la blessure</th>
-                    <th>Jours d'absence</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
+            <tr>
+                <th>Nom</th>
+                <th>Date</th>
+                <th>Lieu</th>
+                <th>Nature de la blessure</th>
+                <th>Jours d'absence</th>
+                <th>Membre touché</th>
+                <th>Cause de l'incident</th>
+                <th>Action</th>
+            </tr>
         </table>
+        <button onclick="ajouterAccident()">Ajouter Rapport</button>
         <button onclick="showPage('dashboard')">Retour</button>
     </div>
 
-    <!-- Page de gestion des équipements de protection -->
     <div id="equipementsPage" class="page">
         <h2>Gestion des Équipements de Protection</h2>
-        <form id="formEquipement" onsubmit="ajouterEquipement(event)">
-            <input type="text" id="equipement" placeholder="Équipement" required>
-            <input type="date" id="dateDistribution" placeholder="Date de distribution" required>
-            <input type="date" id="dateRemplacement" placeholder="Date de remplacement" required>
-            <button type="submit">Ajouter Équipement</button>
-        </form>
         <table id="equipementsTable">
-            <thead>
-                <tr>
-                    <th>Équipement</th>
-                    <th>Date de distribution</th>
-                    <th>Date de remplacement</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Fonction</th>
+                <th>Équipement</th>
+                <th>Date de Distribution</th>
+                <th>Action</th>
+            </tr>
         </table>
+        <button onclick="ajouterEquipement()">Ajouter Équipement</button>
         <button onclick="showPage('dashboard')">Retour</button>
     </div>
 
     <script>
-        // Fonction pour afficher une page
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
         }
 
-        // Fonction de connexion
         function login() {
             showPage('dashboard');
         }
 
-        // Fonction d'inscription
         function register() {
             alert("Inscription réussie! Connectez-vous maintenant.");
             showPage('loginPage');
         }
 
-        // Fonction de déconnexion
         function logout() {
             showPage('loginPage');
         }
 
-        // Ajouter un extincteur
-        function ajouterExtincteur(event) {
-            event.preventDefault(); // Empêcher l'envoi du formulaire
-            let type = document.getElementById("typeExtincteur").value;
-            let dateRemplissage = document.getElementById("dateRemplissage").value;
-            let dateExpiration = document.getElementById("dateExpiration").value;
-            let table = document.getElementById("extincteursTable").getElementsByTagName('tbody')[0];
+        function ajouterExtincteur() {
+            let table = document.getElementById("extincteursTable");
             let row = table.insertRow();
             row.innerHTML = `
-                <td>${type}</td>
-                <td>${dateRemplissage}</td>
-                <td>${dateExpiration}</td>
+                <td><input type="text" placeholder="Type"></td>
+                <td><input type="date" placeholder="Date de remplissage"></td>
+                <td><input type="date" placeholder="Date d'expiration"></td>
+                <td><input type="text" placeholder="Lieu"></td>
+                <td><input type="text" placeholder="Alertes"></td>
                 <td><button onclick='supprimerLigne(this)'>Supprimer</button></td>
             `;
-            // Réinitialiser le formulaire
-            document.getElementById("formExtincteur").reset();
         }
 
-        // Ajouter un rapport d'accident
-        function ajouterAccident(event) {
-            event.preventDefault(); // Empêcher l'envoi du formulaire
-            let nom = document.getElementById("nomAccident").value;
-            let date = document.getElementById("dateAccident").value;
-            let lieu = document.getElementById("lieuAccident").value;
-            let nature = document.getElementById("natureAccident").value;
-            let jours = document.getElementById("joursAbsence").value;
-            let table = document.getElementById("accidentsTable").getElementsByTagName('tbody')[0];
+        function ajouterAccident() {
+            let table = document.getElementById("accidentsTable");
             let row = table.insertRow();
             row.innerHTML = `
-                <td>${nom}</td>
-                <td>${date}</td>
-                <td>${lieu}</td>
-                <td>${nature}</td>
-                <td>${jours}</td>
+                <td><input type="text" placeholder="Nom"></td>
+                <td><input type="date" placeholder="Date"></td>
+                <td><input type="text" placeholder="Lieu"></td>
+                <td><input type="text" placeholder="Nature de la blessure"></td>
+                <td><input type="number" placeholder="Jours d'absence"></td>
+                <td><input type="text" placeholder="Membre touché"></td>
+                <td><input type="text" placeholder="Cause de l'incident"></td>
                 <td><button onclick='supprimerLigne(this)'>Supprimer</button></td>
             `;
-            // Réinitialiser le formulaire
-            document.getElementById("formAccident").reset();
         }
 
-        // Ajouter un équipement de protection
-        function ajouterEquipement(event) {
-            event.preventDefault(); // Empêcher l'envoi du formulaire
-            let equipement = document.getElementById("equipement").value;
-            let dateDistribution = document.getElementById("dateDistribution").value;
-            let dateRemplacement = document.getElementById("dateRemplacement").value;
-            let table = document.getElementById("equipementsTable").getElementsByTagName('tbody')[0];
+        function ajouterEquipement() {
+            let table = document.getElementById("equipementsTable");
             let row = table.insertRow();
             row.innerHTML = `
-                <td>${equipement}</td>
-                <td>${dateDistribution}</td>
-                <td>${dateRemplacement}</td>
+                <td><input type="text" placeholder="Nom"></td>
+                <td><input type="text" placeholder="Prénom"></td>
+                <td><input type="text" placeholder="Fonction"></td>
+                <td><input type="text" placeholder="Équipement"></td>
+                <td><input type="date" placeholder="Date de Distribution"></td>
                 <td><button onclick='supprimerLigne(this)'>Supprimer</button></td>
             `;
-            // Réinitialiser le formulaire
-            document.getElementById("formEquipement").reset();
         }
 
-        // Supprimer une ligne du tableau
         function supprimerLigne(btn) {
             let row = btn.parentNode.parentNode;
             row.parentNode.removeChild(row);
         }
     </script>
 </body>
-
 </html>

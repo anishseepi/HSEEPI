@@ -1,138 +1,140 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscription</title>
+    <title>HSEEPI - Gestion de la Sécurité</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+        .page {
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            background: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #218838;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
 </head>
-
 <body>
-    <div class="container">
-        <h1>Inscription</h1>
-        <form id="registerForm">
-            <label for="fullName">Nom complet (Prénom et Nom):</label>
-            <input type="text" id="fullName" placeholder="Entrez votre nom complet">
-
-            <label for="email">Adresse e-mail:</label>
-            <input type="email" id="email" placeholder="Entrez votre e-mail">
-
-            <label for="phone">Numéro de téléphone:</label>
-            <input type="text" id="phone" placeholder="Entrez votre numéro de téléphone">
-
-            <label for="password">Mot de passe:</label>
-            <input type="password" id="password" placeholder="Entrez un mot de passe">
-
-            <button type="submit">S'inscrire</button>
-        </form>
+    <div id="loginPage" class="page active">
+        <h2>Connexion</h2>
+        <input type="email" id="loginEmail" placeholder="Email">
+        <input type="password" id="loginPassword" placeholder="Mot de passe">
+        <button onclick="login()">Se Connecter</button>
+        <p>Pas de compte? <a href="#" onclick="showPage('registerPage')">Créer un compte</a></p>
     </div>
 
-    <script src="app.js"></script>
-</body>
-
-</html>
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-
-<body>
-    <div class="container">
-        <h1>Connexion</h1>
-        <form id="loginForm">
-            <label for="email">Adresse e-mail:</label>
-            <input type="email" id="email" placeholder="Entrez votre e-mail">
-
-            <label for="password">Mot de passe:</label>
-            <input type="password" id="password" placeholder="Entrez votre mot de passe">
-
-            <button type="submit">Se connecter</button>
-        </form>
-        <p>Pas encore de compte? <a href="register.html">Inscrivez-vous ici</a></p>
+    <div id="registerPage" class="page">
+        <h2>Inscription</h2>
+        <input type="text" id="registerNom" placeholder="Nom">
+        <input type="text" id="registerPrenom" placeholder="Prénom">
+        <input type="email" id="registerEmail" placeholder="Email">
+        <input type="password" id="registerPassword" placeholder="Mot de passe">
+        <button onclick="register()">S'inscrire</button>
+        <p>Déjà un compte? <a href="#" onclick="showPage('loginPage')">Connectez-vous ici</a></p>
     </div>
 
-    <script src="app.js"></script>
-</body>
+    <div id="dashboard" class="page">
+        <h2>Tableau de Bord</h2>
+        <button onclick="showPage('extincteursPage')">Gestion des Extincteurs</button>
+        <button onclick="showPage('accidentsPage')">Rapports d'Accidents</button>
+        <button onclick="logout()">Déconnexion</button>
+    </div>
 
-</html>
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-
-<body>
-    <div class="container">
-        <h2>Bienvenue, <span id="displayName"></span> !</h2>
-        <p><strong>Email:</strong> <span id="displayEmail"></span></p>
-        <p><strong>Téléphone:</strong> <span id="displayPhone"></span></p>
-
-        <!-- إدارة الطفايات -->
-        <h3>Gestion des extincteurs</h3>
-        <table id="extinguishersTable">
-            <thead>
-                <tr>
-                    <th>Type</th>
-                    <th>Emplacement</th>
-                    <th>Date de remplissage</th>
-                    <th>Date d'expiration</th>
-                    <th>Entreprise responsable</th>
-                    <th>État</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- بيانات الطفايات ستظهر هنا -->
-            </tbody>
+    <div id="extincteursPage" class="page">
+        <h2>Gestion des Extincteurs</h2>
+        <table id="extincteursTable">
+            <tr>
+                <th>Type</th>
+                <th>Date de remplissage</th>
+                <th>Date d'expiration</th>
+                <th>Action</th>
+            </tr>
         </table>
-        <button onclick="addExtinguisher()">AJOUTER UN EXTINCTEUR</button>
+        <button onclick="ajouterExtincteur()">Ajouter Extincteur</button>
+        <button onclick="showPage('dashboard')">Retour</button>
+    </div>
 
-        <!-- إدارة معدات الوقاية الشخصية -->
-        <h3>Gestion des équipements de protection</h3>
-        <table id="ppeTable">
-            <thead>
-                <tr>
-                    <th>Nom et prénom</th>
-                    <th>Fonction</th>
-                    <th>Date de réception</th>
-                    <th>Date de prochain remplacement</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- بيانات معدات الوقاية الشخصية ستظهر هنا -->
-            </tbody>
-        </table>
-        <button onclick="addPpe()">AJOUTER UN ÉQUIPEMENT</button>
-
-        <!-- تقارير وإحصائيات حوادث العمل -->
-        <h3>Rapports et statistiques des accidents de travail</h3>
+    <div id="accidentsPage" class="page">
+        <h2>Rapports d'Accidents</h2>
         <table id="accidentsTable">
-            <thead>
-                <tr>
-                    <th>Nom et prénom</th>
-                    <th>Date et heure de l'accident</th>
-                    <th>Lieu de l'accident</th>
-                    <th>Type d'accident</th>
-                    <th>Durée d'absence</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- بيانات حوادث العمل ستظهر هنا -->
-            </tbody>
+            <tr>
+                <th>Nom</th>
+                <th>Date</th>
+                <th>Lieu</th>
+                <th>Nature de la blessure</th>
+                <th>Jours d'absence</th>
+                <th>Action</th>
+            </tr>
         </table>
-        <button onclick="addAccident()">AJOUTER UN ACCIDENT</button>
+        <button onclick="ajouterAccident()">Ajouter Rapport</button>
+        <button onclick="showPage('dashboard')">Retour</button>
     </div>
 
-    <script src="app.js"></script>
-</body>
+    <script>
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+        }
 
+        function login() {
+            showPage('dashboard');
+        }
+
+        function register() {
+            alert("Inscription réussie! Connectez-vous maintenant.");
+            showPage('loginPage');
+        }
+
+        function logout() {
+            showPage('loginPage');
+        }
+
+        function ajouterExtincteur() {
+            let table = document.getElementById("extincteursTable");
+            let row = table.insertRow();
+            row.innerHTML = "<td>Type</td><td>01/01/2024</td><td>01/01/2025</td><td><button onclick='supprimerLigne(this)'>Supprimer</button></td>";
+        }
+
+        function ajouterAccident() {
+            let table = document.getElementById("accidentsTable");
+            let row = table.insertRow();
+            row.innerHTML = "<td>Nom</td><td>01/01/2024</td><td>Lieu</td><td>Nature</td><td>5</td><td><button onclick='supprimerLigne(this)'>Supprimer</button></td>";
+        }
+
+        function supprimerLigne(btn) {
+            let row = btn.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+    </script>
+</body>
 </html>
